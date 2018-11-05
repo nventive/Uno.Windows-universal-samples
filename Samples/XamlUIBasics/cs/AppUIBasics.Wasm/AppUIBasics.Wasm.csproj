@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <WasmHead>true</WasmHead>
+    <DefineConstants>$(DefineConstants);__WASM__</DefineConstants>
+    <NoWarn>NU1701,Uno0001</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Fonts\winjs-symbols.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WasmCSS\Fonts.css" />
+    <EmbeddedResource Include="WasmScripts\AppManifest.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <LinkerDescriptor Include="LinkerConfig.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- 
+    This item group is required by the project templace because of the
+    new SDK-Style project, otherwise some files are not aded automatically.
+    
+    You can safely remove this ItemGroup completely.
+    -->
+    <Compile Remove="Program.cs" />
+    <Compile Include="Program.cs" />
+    <Content Include="LinkerConfig.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Uno.Microsoft.Xaml.Behaviors.Uwp.Managed" Version="2.0.1-uno.28" />
+    <PackageReference Include="Uno.UI" Version="1.42.0-dev.278" />
+    <PackageReference Include="Uno.Wasm.Bootstrap" Version="1.0.0-dev.58" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Filter" Version="1.1.1" />
+	</ItemGroup>
+  <Import Project="..\AppUIBasics.Shared\AppUIBasics.Shared.projitems" Label="Shared" Condition="Exists('..\AppUIBasics.Shared\AppUIBasics.Shared.projitems')" />
+</Project>
