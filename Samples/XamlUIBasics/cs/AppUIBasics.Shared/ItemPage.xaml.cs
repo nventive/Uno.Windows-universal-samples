@@ -66,7 +66,8 @@ namespace AppUIBasics
 
         private void UpdateSeeAlsoPanelVerticalTranslationAnimation()
         {
-            var isEnabled = LayoutVisualStates.CurrentState == LargeLayout;
+#if NETFX_CORE
+			var isEnabled = LayoutVisualStates.CurrentState == LargeLayout;
 
             ElementCompositionPreview.SetIsTranslationEnabled(seeAlsoPanel, true);
 
@@ -86,6 +87,7 @@ namespace AppUIBasics
             {
                 targetPanelVisual.StopAnimation("Translation.Y");
             }
+#endif
         }
 
         private void OnToggleTheme()
@@ -104,10 +106,10 @@ namespace AppUIBasics
                 _currentElementTheme = theme;
                 foreach (var controlExample in controlExamples)
                 {
+#if NETFX_CORE // UNO TODO
                     var exampleContent = controlExample.Example as FrameworkElement;
                     exampleContent.RequestedTheme = theme;
 
-#if NETFX_CORE // UNO TODO
 					controlExample.ExampleContainer.RequestedTheme = theme;
 #endif
 				}
@@ -133,13 +135,16 @@ namespace AppUIBasics
 
             if (NavigationRootPage.Current.PageHeader != null)
             {
-                var connectedAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("controlAnimation");
+// UNO TODO
+#if NETFX_CORE
+				var connectedAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("controlAnimation");
 
                 if (connectedAnimation != null)
                 {
                     var target = NavigationRootPage.Current.PageHeader.TitlePanel;
                     connectedAnimation.TryStart(target, new UIElement[] { subTitleText });
                 }
+#endif
             }
 
             var item = await ControlInfoDataSource.Instance.GetItemAsync((String)e.Parameter);
@@ -250,10 +255,12 @@ namespace AppUIBasics
         {
             string targetState = "NormalFrameContent";
 
-            if ((contentColumn.ActualWidth) >= 1000)
+#if NETFX_CORE
+			if ((contentColumn.ActualWidth) >= 1000)
             {
                 targetState = "WideFrameContent";
             }
+#endif
 
             VisualStateManager.GoToState(this, targetState, false);
         }

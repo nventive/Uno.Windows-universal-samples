@@ -21,7 +21,7 @@ using Windows.UI.Xaml.Media.Animation;
 
 namespace AppUIBasics
 {
-    public abstract class ItemsPageBase : Page, INotifyPropertyChanged
+    public abstract partial class ItemsPageBase : Page, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -98,13 +98,15 @@ namespace AppUIBasics
                     {
                         ((GridViewItem)gridView.ContainerFromItem(item))?.Focus(FocusState.Programmatic);
                     }
-
-                    ConnectedAnimation animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("controlAnimation");
+// UNO TODO
+#if NETFX_CORE
+					ConnectedAnimation animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("controlAnimation");
 
                     if (animation != null)
                     {
                         await gridView.TryStartConnectedAnimationAsync(animation, item, "controlRoot");
                     }
+#endif
                 }
             }
         }

@@ -197,8 +197,8 @@ namespace AppUIBasics.Common
             this.systemNavigationManager = SystemNavigationManager.GetForCurrentView();
             systemNavigationManager.BackRequested += SystemNavigationManager_BackRequested;
 
-            // must register back requested on navview
-            if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 6))
+			// must register back requested on navview
+			if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 6))
             {
                 CurrentNavView.BackRequested += NavView_BackRequested;
             }

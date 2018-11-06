@@ -1,13 +1,18 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+	xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:AppUIBasics"
-    xmlns:common="using:AppUIBasics.Common">
+    xmlns:common="using:AppUIBasics.Common"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:xamarin="http://uno.ui/xamarin"
+	mc:Ignorable="d xamarin">
                 <ResourceDictionary.MergedDictionaries>
                 <local:ItemTemplates />
             </ResourceDictionary.MergedDictionaries>
 
-            <ResourceDictionary.ThemeDictionaries>
+            <win:ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
                     <StaticResource x:Key="HomePageBackgroundBrush" ResourceKey="ApplicationPageBackgroundThemeBrush" />
                     <SolidColorBrush x:Key="SearchBoxBorderBrush" Color="Transparent" />
@@ -25,8 +30,13 @@
                     <SolidColorBrush x:Key="SearchBoxBorderBrush" Color="{ThemeResource SystemColorWindowTextColor}" />
                     <Thickness x:Key="SearchBoxBorderThickness">2</Thickness>
                 </ResourceDictionary>
-            </ResourceDictionary.ThemeDictionaries>
+            </win:ResourceDictionary.ThemeDictionaries>
 
+            <xamarin:StaticResource x:Key="HomePageBackgroundBrush" ResourceKey="ApplicationPageBackgroundThemeBrush" />
+            <xamarin:SolidColorBrush x:Key="SearchBoxBorderBrush" Color="Transparent" />
+            <!--<xamarin:ImageSource x:Key="PTRCustom">ms-appx:///Assets/sun-100-Black.png</xamarin:ImageSource>-->
+            <xamarin:Thickness x:Key="SearchBoxBorderThickness">0</xamarin:Thickness>
+	
             <!--  Application-specific resources  -->
             <common:BooleanNegationConverter x:Key="negationConverter" />
             <common:ValueToStringConverter x:Key="valueToStringConverter" />

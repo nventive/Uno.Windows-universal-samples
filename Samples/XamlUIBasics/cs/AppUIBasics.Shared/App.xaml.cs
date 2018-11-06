@@ -25,6 +25,8 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Extensions.Logging;
+using Uno.Extensions;
 
 namespace AppUIBasics
 {
@@ -43,7 +45,7 @@ namespace AppUIBasics
         {
             get
             {
-                if (Window.Current.Content is FrameworkElement rootElement)
+                if (Windows.UI.Xaml.Window.Current.Content is FrameworkElement rootElement)
                 {
                     if (rootElement.RequestedTheme != ElementTheme.Default)
                     {
@@ -62,7 +64,7 @@ namespace AppUIBasics
         {
             get
             {
-                if (Window.Current.Content is FrameworkElement rootElement)
+                if (Windows.UI.Xaml.Window.Current.Content is FrameworkElement rootElement)
                 {
                     return rootElement.RequestedTheme;
                 }
@@ -71,7 +73,7 @@ namespace AppUIBasics
             }
             set
             {
-                if (Window.Current.Content is FrameworkElement rootElement)
+                if (Windows.UI.Xaml.Window.Current.Content is FrameworkElement rootElement)
                 {
                     rootElement.RequestedTheme = value;
                 }
@@ -86,18 +88,57 @@ namespace AppUIBasics
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
+#if DEBUG
+			ConfigureFilters(LogExtensionPoint.AmbientLoggerFactory);
+#endif
+
+			this.InitializeComponent();
             this.Suspending += OnSuspending;
             this.Resuming += App_Resuming;
             this.RequiresPointerMode = ApplicationRequiresPointerMode.WhenRequested;
 
             if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 6))
             {
-                this.FocusVisualKind = AnalyticsInfo.VersionInfo.DeviceFamily == "Xbox" ? FocusVisualKind.Reveal : FocusVisualKind.HighVisibility;
+// UNO TODO
+#if NETFX_CORE
+				this.FocusVisualKind = AnalyticsInfo.VersionInfo.DeviceFamily == "Xbox" ? FocusVisualKind.Reveal : FocusVisualKind.HighVisibility;
+#endif
             }
         }
 
-        public void EnableSound(bool withSpatial = false)
+		static void ConfigureFilters(ILoggerFactory factory)
+		{
+			factory
+				.WithFilter(new FilterLoggerSettings
+					{
+						{ "Uno", LogLevel.Warning },
+						{ "Windows", LogLevel.Warning },
+						
+						// Generic Xaml events
+						//{ "Windows.UI.Xaml", LogLevel.Debug },
+						// { "Windows.UI.Xaml.Shapes", LogLevel.Debug },
+						//{ "Windows.UI.Xaml.VisualStateGroup", LogLevel.Debug },
+						//{ "Windows.UI.Xaml.StateTriggerBase", LogLevel.Debug },
+						// { "Windows.UI.Xaml.UIElement", LogLevel.Debug },
+						// { "Windows.UI.Xaml.Setter", LogLevel.Debug },
+						   
+						// Layouter specific messages
+						// { "Windows.UI.Xaml.Controls", LogLevel.Debug },
+						//{ "Windows.UI.Xaml.Controls.Layouter", LogLevel.Debug },
+						//{ "Windows.UI.Xaml.Controls.Panel", LogLevel.Debug },
+						   
+						// Binding related messages
+						// { "Windows.UI.Xaml.Data", LogLevel.Debug },
+						// { "Windows.UI.Xaml.Data", LogLevel.Debug },
+						   
+						//  Binder memory references tracking
+						// { "ReferenceHolder", LogLevel.Debug },
+					}
+				)
+				.AddConsole(LogLevel.Debug);
+		}
+
+		public void EnableSound(bool withSpatial = false)
         {
             ElementSoundPlayer.State = ElementSoundPlayerState.On;
 
@@ -241,18 +282,21 @@ namespace AppUIBasics
 
             rootFrame.Navigate(targetPageType, targetPageArguments);
 
-            // Ensure the current window is active
-            Window.Current.Activate();
+			// Ensure the current window is active
+			Windows.UI.Xaml.Window.Current.Activate();
         }
 
         private Frame GetRootFrame()
         {
             Frame rootFrame;
-            NavigationRootPage rootPage = Window.Current.Content as NavigationRootPage;
+            NavigationRootPage rootPage = Windows.UI.Xaml.Window.Current.Content as NavigationRootPage;
             if (rootPage == null)
             {
                 rootPage = new NavigationRootPage();
-                Window.Current.Content = rootPage;
+				Windows.UI.Xaml.Window.Current.Content = rootPage;
+
+				/* Uno TODO */
+                (rootPage.FindName("NavigationViewControl") as Control)?.ApplyTemplate();
 
                 rootFrame = (Frame)rootPage.FindName("rootFrame");
                 if (rootFrame == null)

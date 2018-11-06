@@ -16,7 +16,7 @@
                 <local:ControlExample.Example>
                     <Grid>
                         <Windows10InsiderPreview:RefreshContainer VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="rc" Windows10InsiderPreview:RefreshRequested="rc_RefreshRequested">
-                            <Windows10InsiderPreview:ListView x:Name="lv" Width="200" Height="200" BorderThickness="1"
+                            <ListView x:Name="lv" Width="200" Height="200" BorderThickness="1"
                                     BorderBrush="{ThemeResource TextControlBorderBrush}"/>
                         </Windows10InsiderPreview:RefreshContainer>
                     </Grid>

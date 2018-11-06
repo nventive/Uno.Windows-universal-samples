@@ -97,7 +97,7 @@ namespace AppUIBasics
             Gamepad.GamepadAdded += OnGamepadAdded;
             Gamepad.GamepadRemoved += OnGamepadRemoved;
 
-            Window.Current.CoreWindow.SizeChanged += (s, e) => UpdateAppTitle();
+           Windows.UI.Xaml.Window.Current.CoreWindow.SizeChanged += (s, e) => UpdateAppTitle();
 
 #if NETFX_CORE
 			CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += (s, e) => UpdateAppTitle();
@@ -131,7 +131,9 @@ namespace AppUIBasics
                 {
                     item.Icon = new FontIcon()
                     {
-                        FontFamily = new FontFamily("Segoe MDL2 Assets"),
+#if NETFX_CORE
+						FontFamily = new FontFamily("Segoe MDL2 Assets"),
+#endif
                         Glyph = group.ImagePath
                     };
                 }

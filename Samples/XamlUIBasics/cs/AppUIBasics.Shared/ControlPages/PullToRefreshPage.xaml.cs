@@ -73,7 +73,7 @@ namespace AppUIBasics.ControlPages
                 ptrImage.Width = 35;
                 ptrImage.Height = 35;
 
-                rv2.Content = ptrImage;
+                rv2.Content = /* Uno TODO */ new Border { Child = ptrImage };
                 rc2.Visualizer = rv2;
 
                 ListView lv2 = new ListView();
