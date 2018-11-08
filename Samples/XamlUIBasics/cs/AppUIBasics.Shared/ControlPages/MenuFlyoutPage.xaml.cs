@@ -13,6 +13,10 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 
+#if __ANDROID__
+using RoutedEventArgs = System.EventArgs;
+#endif
+
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace AppUIBasics.ControlPages
@@ -27,7 +31,7 @@ namespace AppUIBasics.ControlPages
             this.InitializeComponent();
         }
 
-        private void MenuFlyoutItem_Click(object sender, EventArgs e)
+        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
             MenuFlyoutItem selectedItem = sender as MenuFlyoutItem;
 
@@ -50,7 +54,7 @@ namespace AppUIBasics.ControlPages
             }
         }
 
-        private void Example5_Loaded(object sender, EventArgs e)
+        private void Example5_Loaded(object sender, RoutedEventArgs e)
         {
 
         }
