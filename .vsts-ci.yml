@@ -1,5 +1,5 @@
-phases:
-- phase: Windows
+jobs:
+- job: Windows
 
   steps:
   - checkout: self
@@ -32,9 +32,48 @@ phases:
 
   - task: CopyFiles@2
     inputs:
-      SourceFolder: $(build.sourcesdirectory)/Samples/XamlUIBasics/cs/AppUIBasics.Wasm/bin/Debug/netstandard2.0/dist
+      SourceFolder: $(build.sourcesdirectory)/Samples/XamlUIBasics/cs/AppUIBasics.Wasm/bin/Release/netstandard2.0/dist
       Contents: '*.*'
       TargetFolder: $(build.artifactstagingdirectory)/XamlUIBasics-wasm
+      CleanTargetFolder: false
+      OverWrite: false
+      flattenFolders: false
+
+  - task: PublishBuildArtifacts@1
+    # https://developercommunity.visualstudio.com/content/problem/284991/public-vsts-previouw-cant-set-build-number-of-pr-b.html
+    condition: eq(variables['System.PullRequest.IsFork'], 'False')
+    inputs:
+      PathtoPublish: $(build.artifactstagingdirectory)
+      ArtifactName: universal-samples-drop
+      ArtifactType: Container
+
+- job: macos
+
+  pool:
+    vmImage: 'macOS-10.13'
+
+  steps:
+  - checkout: self
+    clean: true
+
+  - task: MSBuild@1
+    inputs:
+      solution: '$(build.sourcesdirectory)/Samples/XamlUIBasics/cs/AppUIBasics.iOS/AppUIBasics.iOS.csproj'
+      msbuildLocationMethod: version
+      msbuildVersion: latest
+      msbuildArchitecture: x86
+      msbuildArguments: '/r /p:Configuration=Release /p:Platform=iPhone /detailedsummary /m:16 /nr:false'
+      clean: false
+      maximumCpuCount: true
+      restoreNugetPackages: false
+      logProjectEvents: true
+      createLogFile: true
+
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: $(build.sourcesdirectory)/Samples/XamlUIBasics/cs/AppUIBasics.iOS/bin/iPhone/Release
+      Contents: '*.ipa'
+      TargetFolder: $(build.artifactstagingdirectory)/XamlUIBasics-iOS
       CleanTargetFolder: false
       OverWrite: false
       flattenFolders: false
