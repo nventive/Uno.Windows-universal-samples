@@ -7,6 +7,7 @@
 // PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
 //
 //*********************************************************
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -26,7 +27,7 @@ namespace AppUIBasics.ControlPages
             this.InitializeComponent();
         }
 
-        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        private void MenuFlyoutItem_Click(object sender, EventArgs e)
         {
             MenuFlyoutItem selectedItem = sender as MenuFlyoutItem;
 
@@ -49,7 +50,7 @@ namespace AppUIBasics.ControlPages
             }
         }
 
-        private void Example5_Loaded(object sender, RoutedEventArgs e)
+        private void Example5_Loaded(object sender, EventArgs e)
         {
 
         }
