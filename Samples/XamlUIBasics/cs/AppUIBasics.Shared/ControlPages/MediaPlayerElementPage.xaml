@@ -6,7 +6,7 @@
     <StackPanel>
         <local:ControlExample x:Name="Example1" HeaderText="A MediaPlayerElement with transport controls.">
             <local:ControlExample.Example>
-                <MediaPlayerElement Source="ms-appx:///Assets/ladybug.wmv" MaxWidth="400" AutoPlay="False"
+                <MediaPlayerElement Source="https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8" MaxWidth="400" AutoPlay="False"
                         AreTransportControlsEnabled="True" />
             </local:ControlExample.Example>
             <local:ControlExample.Xaml>
@@ -20,7 +20,7 @@
         </local:ControlExample>
         <local:ControlExample x:Name="Example2" HeaderText="A MediaPlayerElement that autoplays the video.">
             <local:ControlExample.Example>
-                <MediaElement Source="ms-appx:///Assets/fishes.wmv" MaxWidth="400" AutoPlay="True" />
+                <MediaElement Source="https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8" MaxWidth="400" AutoPlay="True" />
             </local:ControlExample.Example>
             <local:ControlExample.Xaml>
                 <RichTextBlock Style="{StaticResource XamlCodeRichTextBlockStyle}">
