@@ -18,7 +18,6 @@
                             <VisualState.StateTriggers>
                                 <AdaptiveTrigger MinWindowWidth="{StaticResource Breakpoint640Plus}" />
                             </VisualState.StateTriggers>
-                            <VisualState.Setters />
                         </VisualState>
                         <VisualState x:Name="NarrowLayout">
                             <VisualState.StateTriggers>
