@@ -293,7 +293,6 @@ namespace AppUIBasics
             if (rootPage == null)
             {
                 rootPage = new NavigationRootPage();
-				Windows.UI.Xaml.Window.Current.Content = rootPage;
 
 				/* Uno TODO */
                 (rootPage.FindName("NavigationViewControl") as Control)?.ApplyTemplate();
@@ -309,6 +308,7 @@ namespace AppUIBasics
 #endif
 				rootFrame.NavigationFailed += OnNavigationFailed;
 
+				Windows.UI.Xaml.Window.Current.Content = rootPage;
             }
             else
             {
