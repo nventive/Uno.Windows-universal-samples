@@ -32,16 +32,23 @@ namespace AppUIBasics
     public partial class ItemPage : Page
     {
         private Compositor _compositor;
-        private ControlInfoDataItem _item;
-        private ElementTheme? _currentElementTheme;
+		private ElementTheme? _currentElementTheme;
 
-        public ControlInfoDataItem Item
-        {
-            get { return _item; }
-            set { _item = value; }
-        }
+		#region Item DependencyProperty
 
-        public ItemPage()
+		// UNO TODO x:Bind sequence to this property is too early
+		public ControlInfoDataItem Item
+		{
+			get => (ControlInfoDataItem)GetValue(ItemProperty);
+			set => SetValue(ItemProperty, value);
+		}
+
+		public static readonly DependencyProperty ItemProperty =
+			DependencyProperty.Register(nameof(Item), typeof(ControlInfoDataItem), typeof(ItemPage), new PropertyMetadata(null));
+
+		#endregion
+
+		public ItemPage()
         {
             this.InitializeComponent();
 
@@ -156,9 +163,14 @@ namespace AppUIBasics
                 // Load control page into frame.
                 var loader = ResourceLoader.GetForCurrentView();
 
-                string pageRoot = loader.GetString("PageStringRoot");
+#if NETFX_CORE
+				string pageRoot = loader.GetString("PageStringRoot");
+#else
+				// UNO TODO, path parsing for resource files is incorrect
+				string pageRoot = typeof(ControlPages.BorderPage).Namespace + ".";
+#endif
 
-                string pageString = pageRoot + item.UniqueId + "Page";
+				string pageString = pageRoot + item.UniqueId + "Page";
                 Type pageType = Type.GetType(pageString);
 
                 if (pageType != null)
@@ -166,7 +178,7 @@ namespace AppUIBasics
                     this.contentFrame.Navigate(pageType);
                 }
 
-                NavigationRootPage.Current.NavigationView.Header = item?.Title;
+				NavigationRootPage.Current.NavigationView.Header = item?.Title;
                 if (item.IsNew && NavigationRootPage.Current.CheckNewControlSelected())
                 {
                     return;
@@ -195,12 +207,14 @@ namespace AppUIBasics
             NavigationRootPage.Current.PageHeader.TopCommandBar.Visibility = Visibility.Collapsed;
             NavigationRootPage.Current.PageHeader.ToggleThemeAction = null;
 
-            //Reverse Connected Animation
-            if (e.SourcePageType != typeof(ItemPage))
+#if NETFX_CORE
+			//Reverse Connected Animation
+			if (e.SourcePageType != typeof(ItemPage))
             {
                 var target = NavigationRootPage.Current.PageHeader.TitlePanel;
                 ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("controlAnimation", target);
             }
+#endif
 
             base.OnNavigatedFrom(e);
         }
