@@ -22,7 +22,10 @@
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
+		<string>arm64</string>
 	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -36,6 +39,16 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>UILaunchImageMinimumOSVersion</key>
+	<string>9.0</string>
+	<key>UILaunchImageOrientation</key>
+	<string>Portait</string>
+	<key>UILaunchImageSize</key>
+	<string>{320, 568}</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Fonts/winjs-symbols.ttf</string>

@@ -96,11 +96,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
+    <BundleResource Include="Resources\SplashScreen%402x.png" />
+    <BundleResource Include="Resources\SplashScreen%403x.png" />
     <None Include="Info.plist">
       <SubType>Designer</SubType>
     </None>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Entitlements.plist" />
+    <InterfaceDefinition Include="LaunchScreen.storyboard">
+      <SubType>Designer</SubType>
+    </InterfaceDefinition>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -125,6 +130,21 @@
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Media.xcassets\AppIcons.appiconset\LargeTile-Square.scale-400.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\SmallTile-sdk.altform-unplated_targetsize-40.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\SmallTile-sdk.altform-unplated_targetsize-60.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\squaretile-sdk-ipad.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\squaretile-sdk-iphone.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\squaretile-sdk-iphone1.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Media.xcassets\LaunchImages.launchimage\Contents.json">
