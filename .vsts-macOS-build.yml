@@ -35,6 +35,7 @@ jobs:
       createLogFile: true
 
   - task: CopyFiles@2
+    displayName: 'Publish iOS Binaries'
     inputs:
       SourceFolder: $(build.sourcesdirectory)/Samples/XamlUIBasics/cs/AppUIBasics.iOS/bin/iPhone/Release
       Contents: '*.ipa'
