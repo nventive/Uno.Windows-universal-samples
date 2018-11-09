@@ -29,11 +29,6 @@
                 </VisualState>
             </VisualStateGroup>
             <VisualStateGroup x:Name="LayoutVisualStates">
-                <VisualState x:Name="WideLayout">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource Breakpoint640Plus}" />
-                    </VisualState.StateTriggers>
-                </VisualState>
                 <VisualState x:Name="NarrowLayout">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="0" />
@@ -42,6 +37,12 @@
                         <Setter Target="resultsPivot.Margin" Value="0" />
                         <Setter Target="noResultsTextBlock.Margin" Value="14,14,0,0" />
                     </VisualState.Setters>
+                </VisualState>
+ 				<!-- UNO TODO Visual State ordering -->
+				<VisualState x:Name="WideLayout">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource Breakpoint640Plus}" />
+                    </VisualState.StateTriggers>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
@@ -78,11 +79,6 @@
                             TabIndex="1">
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup>
-                                    <VisualState x:Name="WideLayout">
-                                        <VisualState.StateTriggers>
-                                            <AdaptiveTrigger MinWindowWidth="{StaticResource Breakpoint640Plus}" />
-                                        </VisualState.StateTriggers>
-                                    </VisualState>
                                     <VisualState x:Name="NarrowLayout">
                                         <VisualState.StateTriggers>
                                             <AdaptiveTrigger MinWindowWidth="0" />
@@ -92,6 +88,12 @@
                                             <Setter Target="resultsGridView.Padding" Value="14,0" />
                                             <Setter Target="resultsGridView.ItemContainerStyle" Value="{StaticResource GridViewItemStyleSmall}" />
                                         </VisualState.Setters>
+                                    </VisualState>
+									<!-- UNO TODO Visual State ordering -->
+                                    <VisualState x:Name="WideLayout">
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="{StaticResource Breakpoint640Plus}" />
+                                        </VisualState.StateTriggers>
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>

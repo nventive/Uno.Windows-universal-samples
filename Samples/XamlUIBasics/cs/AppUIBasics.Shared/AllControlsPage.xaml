@@ -24,12 +24,6 @@
         <VisualStateManager.VisualStateGroups>
             <!--  Visual states reflect the application's window size  -->
             <VisualStateGroup x:Name="LayoutVisualStates">
-                <VisualState x:Name="WideLayout">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource Breakpoint640Plus}" />
-                    </VisualState.StateTriggers>
-					<VisualState.Setters></VisualState.Setters>
-				</VisualState>
                 <VisualState x:Name="NarrowLayout">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="0" />
@@ -41,6 +35,13 @@
                         <Setter Target="pageHeader.Visibility" Value="Collapsed" />
                     </VisualState.Setters>
                 </VisualState>
+				<!-- UNO TODO Visual State ordering -->
+                <VisualState x:Name="WideLayout">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource Breakpoint640Plus}" />
+                    </VisualState.StateTriggers>
+					<VisualState.Setters></VisualState.Setters>
+				</VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
