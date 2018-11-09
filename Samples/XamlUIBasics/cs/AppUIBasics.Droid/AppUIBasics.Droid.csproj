@@ -100,4 +100,5 @@
 		<Target Name="AfterBuild">
 		</Target>
  -->
+	<Target Name="GenerateBuild" DependsOnTargets="SignAndroidPackage" AfterTargets="Build" Condition="'$(BuildingInsideVisualStudio)'==''" />
 </Project>
