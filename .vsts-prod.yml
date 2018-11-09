@@ -1,4 +1,9 @@
 jobs:
+- template: .vsts-macOS-build.yml
+  parameters:
+    name: macOS
+    pool:
+      vmImage: 'macOS-10.13'
 
 - template: .vsts-win-build.yml
   parameters:
