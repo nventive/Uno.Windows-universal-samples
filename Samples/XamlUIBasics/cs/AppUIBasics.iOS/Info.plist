@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDisplayName</key>
-	<string>UnoQuickStart.iOS</string>
+	<string>Xaml Control Gallery</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.companyname.AppUIBasics</string>
+	<string>com.nventive.uno.xamlcontrolgallery</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
