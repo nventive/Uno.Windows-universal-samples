@@ -48,13 +48,25 @@ jobs:
       ArtifactType: Container
 
 - job: macos
-
+  condition: ne(variables['iOSSigning.Certificate'], '')
   pool:
     vmImage: 'macOS-10.13'
 
   steps:
   - checkout: self
     clean: true
+
+  - task: InstallAppleCertificate@2
+    displayName: 'Install an Apple certificate'
+    inputs:
+      certSecureFile: '$(iOSSigning.Certificate)'
+      certPwd: '$(iOSSigning.CertificatePwd)'
+      signingIdentity: '$(iOSSigning.CertificateIdentity)'
+
+  - task: InstallAppleProvisioningProfile@1
+    displayName: 'Install an Apple provisioning profile'
+    inputs:
+      provProfileSecureFile: '$(iOSSigning.ProvisioningProfile)'
 
   - task: MSBuild@1
     inputs:
