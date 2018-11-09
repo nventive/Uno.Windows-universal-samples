@@ -6,6 +6,11 @@ jobs:
 - job: Windows
   pool: ${{ parameters.pool }}
 
+  variables:
+    ANDROID_NDK_HOME: C:\Microsoft\AndroidNDK64\android-ndk-r15c
+    ANDROID_NDK_PATH: C:\Microsoft\AndroidNDK64\android-ndk-r15c
+    AndroidNdkDirectory: C:\Microsoft\AndroidNDK64\android-ndk-r15c
+
   steps:
   - checkout: self
     clean: true
