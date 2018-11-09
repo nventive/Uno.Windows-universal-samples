@@ -57,17 +57,6 @@
     },
     {
       "scale": "2x",
-      "size": "83.5x83.5",
-      "idiom": "ipad"
-    },
-    {
-      "scale": "1x",
-      "size": "1024x1024",
-      "idiom": "ios-marketing",
-      "filename": "LargeTile-Square.scale-400.png"
-    },
-    {
-      "scale": "2x",
       "size": "20x20",
       "idiom": "iphone",
       "filename": "SmallTile-sdk.altform-unplated_targetsize-40.png"
@@ -95,6 +84,18 @@
       "size": "76x76",
       "idiom": "ipad",
       "filename": "squaretile-sdk-ipad.png"
+    },
+    {
+      "scale": "1x",
+      "size": "1024x1024",
+      "idiom": "ios-marketing",
+      "filename": "LargeTile-Square.scale-400.png"
+    },
+    {
+      "scale": "2x",
+      "size": "83.5x83.5",
+      "idiom": "ipad",
+      "filename": "squaretile-sdk-ipadpro.png"
     }
   ],
   "properties": {},
