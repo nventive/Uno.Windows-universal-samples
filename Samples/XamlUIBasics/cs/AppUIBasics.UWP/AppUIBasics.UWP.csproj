@@ -16,6 +16,8 @@
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PackageCertificateThumbprint>B9BBF028A6611F29C409C3880FDD5C259D26E1CD</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>AppUIBasics.UWP_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -107,6 +109,9 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Filter" Version="1.1.1" />
     <PackageReference Include="Uno.Core" Version="1.25.0-dev.57" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AppUIBasics.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <Import Project="..\AppUIBasics.Shared\AppUIBasics.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
