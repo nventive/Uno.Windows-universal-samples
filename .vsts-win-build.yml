@@ -44,7 +44,7 @@ jobs:
     displayName: 'Publish Wasm Binaries'
     inputs:
       SourceFolder: $(build.sourcesdirectory)/Samples/XamlUIBasics/cs/AppUIBasics.Wasm/bin/Release/netstandard2.0/dist
-      Contents: '*.*'
+      Contents: '**/*.*'
       TargetFolder: $(build.artifactstagingdirectory)/XamlUIBasics-wasm
       CleanTargetFolder: false
       OverWrite: false
