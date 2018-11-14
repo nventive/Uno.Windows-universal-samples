@@ -1,6 +1,7 @@
 ﻿<UserControl
     x:Class="AppUIBasics.ControlExample"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
@@ -113,7 +114,8 @@
             <Border VerticalAlignment="Bottom" BorderBrush="{ThemeResource SystemControlBackgroundChromeMediumBrush}" BorderThickness="0,0,0,1" Visibility="{x:Bind Xaml, Converter={StaticResource inverseNullToVisibilityConverter}}" />
 
             <!--  XAML display  -->
-            <ScrollViewer
+			<!-- Uno TODO RichTextBlock is not supported -->
+            <win:ScrollViewer
                 Grid.Row="1"
                 Background="{ThemeResource SystemControlBackgroundChromeMediumBrush}"
                 HorizontalScrollBarVisibility="Auto"
@@ -126,7 +128,7 @@
                     Margin="0"
                     Padding="16,20"
                     Content="{x:Bind Xaml}" />
-            </ScrollViewer>
+            </win:ScrollViewer>
         </Grid>
     </Grid>
 </UserControl>

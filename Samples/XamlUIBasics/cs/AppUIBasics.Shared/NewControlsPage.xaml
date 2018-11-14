@@ -16,7 +16,8 @@
     xmlns:local="using:AppUIBasics"
     xmlns:behavior="using:AppUIBasics.Behaviors"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    NavigationCacheMode="Enabled">
+    xmlns:toolkit="using:Uno.UI.Toolkit"
+	NavigationCacheMode="Enabled">
 
     <!--  This grid acts as a root panel for the page.  -->
     <Grid Background="{ThemeResource HomePageBackgroundBrush}">
@@ -58,7 +59,8 @@
             KeyDown="OnItemGridViewKeyDown"
             Loaded="OnItemGridViewLoaded"
             SizeChanged="OnItemGridViewSizeChanged"
-            SelectionMode="None">
+            SelectionMode="None"
+			toolkit:VisibleBoundsPadding.PaddingMask="All">
             <interactivity:Interaction.Behaviors>
                 <behavior:ImageScrollBehavior TargetControl="{Binding ElementName=pageHeader}" />
             </interactivity:Interaction.Behaviors>
