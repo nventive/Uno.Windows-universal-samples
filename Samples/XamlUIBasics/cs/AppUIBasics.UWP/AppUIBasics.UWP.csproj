@@ -109,6 +109,9 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Filter" Version="1.1.1" />
     <PackageReference Include="Uno.Core" Version="1.25.0-dev.57" />
+    <PackageReference Include="Uno.UI">
+      <Version>1.42.0-dev.357</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="AppUIBasics.UWP_TemporaryKey.pfx" />
