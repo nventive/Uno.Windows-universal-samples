@@ -18,7 +18,7 @@
 [Gg]enerated Files/
 x64/
 x86/
-build/
+*.binlog
 bld/
 [Bb]in/
 [Oo]bj/

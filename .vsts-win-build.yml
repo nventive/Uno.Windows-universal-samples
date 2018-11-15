@@ -29,6 +29,19 @@ jobs:
 
   - task: MSBuild@1
     inputs:
+      solution: build/Build.csproj
+      msbuildLocationMethod: version
+      msbuildVersion: latest
+      msbuildArchitecture: x86
+      msbuildArguments: "/r"
+      clean: false
+      maximumCpuCount: true
+      restoreNugetPackages: false
+      logProjectEvents: false
+      createLogFile: false
+
+  - task: MSBuild@1
+    inputs:
       solution: Samples\XamlUIBasics\cs\AppUIBasics.sln
       msbuildLocationMethod: version
       msbuildVersion: latest
