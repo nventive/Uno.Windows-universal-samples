@@ -23,9 +23,9 @@
     <NoWarn>Uno0001</NoWarn>
     <AndroidKeyStore>true</AndroidKeyStore>
     <AndroidSigningKeyStore>..\..\..build\nventive.keystore</AndroidSigningKeyStore>
-    <AndroidSigningStorePass>$(nventivekeystore.pwd)</AndroidSigningStorePass>
-    <AndroidSigningKeyAlias>$(nventivekeystore.alias)</AndroidSigningKeyAlias>
-    <AndroidSigningKeyPass>$(nventivekeystore.aliaspwd)</AndroidSigningKeyPass>
+    <AndroidSigningStorePass>$(nventivekeystore_pwd)</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>$(nventivekeystore_alias)</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>$(nventivekeystore_aliaspwd)</AndroidSigningKeyPass>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
