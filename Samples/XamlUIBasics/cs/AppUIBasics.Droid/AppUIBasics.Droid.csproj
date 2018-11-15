@@ -21,6 +21,11 @@
     <AndroidUseIntermediateDesignerFile>True</AndroidUseIntermediateDesignerFile>
     <ResourcesDirectory>..\AppUIBasics.Shared\Strings</ResourcesDirectory>
     <NoWarn>Uno0001</NoWarn>
+    <AndroidKeyStore>true</AndroidKeyStore>
+    <AndroidSigningKeyStore>..\..\..build\nventive.keystore</AndroidSigningKeyStore>
+    <AndroidSigningStorePass>$(nventivekeystore.pwd)</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>$(nventivekeystore.alias)</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>$(nventivekeystore.aliaspwd)</AndroidSigningKeyPass>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,6 +39,9 @@
     <AndroidLinkMode>None</AndroidLinkMode>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AndroidSupportedAbis />
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>portable</DebugType>
@@ -66,8 +74,8 @@
   <ItemGroup>
     <PackageReference Include="Uno.UI" Version="1.42.0-dev.357" />
     <PackageReference Include="Uno.Microsoft.Xaml.Behaviors.Uwp.Managed" Version="2.0.1-uno.28" />
-		<PackageReference Include="System.Json" Version="4.5.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
+    <PackageReference Include="System.Json" Version="4.5.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Filter" Version="1.1.1" />
     <PackageReference Include="Uno.UniversalImageLoader" Version="1.9.32" />
   </ItemGroup>
