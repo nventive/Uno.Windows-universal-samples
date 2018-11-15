@@ -11,14 +11,14 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Json;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Windows.Storage;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
+using System.Runtime.Serialization.Json;
 
 // The data model defined by this file serves as a representative example of a strongly-typed
 // model.  The property names chosen coincide with data bindings in the standard item templates.
@@ -193,54 +193,61 @@ namespace AppUIBasics.Data
 
 			using (var s = new StreamReader(this.GetType().GetTypeInfo().Assembly.GetManifestResourceStream(name)))
 			{
-				var jsonObject = JObject.Parse(s.ReadToEnd());
+				var jsonObject = JsonObject.Load(s);
 
 				var jsonArray = jsonObject["Groups"];
 
 				lock (_lock)
 				{
-					foreach (JObject groupObject in jsonArray)
+					foreach (JsonValue groupValue in jsonArray)
 					{
-						var group = new ControlInfoDataGroup(groupObject["UniqueId"].Value<string>(),
-																			  groupObject["Title"].Value<string>(),
-																			  groupObject["Subtitle"].Value<string>(),
-																			  groupObject["ImagePath"].Value<string>(),
-																			  groupObject["Description"].Value<string>());
-
-						foreach (JObject itemValue in groupObject["Items"])
+						if (groupValue is JsonObject groupObject)
 						{
-							var itemObject = itemValue;
-							var item = new ControlInfoDataItem(itemObject["UniqueId"].Value<string>(),
-																	itemObject["Title"].Value<string>(),
-																	itemObject["Subtitle"].Value<string>(),
-																	itemObject["ImagePath"].Value<string>(),
-																	itemObject["Description"].Value<string>(),
-																	itemObject["Content"].Value<string>(),
-																	itemObject["IsNew"].Value<bool>());
+							ControlInfoDataGroup group = new ControlInfoDataGroup(groupObject["UniqueId"],
+																				  groupObject["Title"],
+																				  groupObject["Subtitle"],
+																				  groupObject["ImagePath"],
+																				  groupObject["Description"]);
 
-							if (itemObject.ContainsKey("Docs"))
+							foreach (JsonValue itemValue in groupObject["Items"])
 							{
-								foreach (JObject docValue in itemObject["Docs"])
+								if (itemValue is JsonObject itemObject)
 								{
-									var docObject = docValue;
-									item.Docs.Add(new ControlInfoDocLink(docObject["Title"].Value<string>(), docObject["Uri"].Value<string>()));
+									var item = new ControlInfoDataItem(itemObject["UniqueId"],
+																			itemObject["Title"],
+																			itemObject["Subtitle"],
+																			itemObject["ImagePath"],
+																			itemObject["Description"],
+																			itemObject["Content"],
+																			itemObject["IsNew"]);
+
+									if (itemObject.ContainsKey("Docs"))
+									{
+										foreach (JsonValue docValue in itemObject["Docs"])
+										{
+											if (docValue is JsonObject docObject)
+											{
+												item.Docs.Add(new ControlInfoDocLink(docObject["Title"], docObject["Uri"]));
+											}
+										}
+									}
+
+									if (itemObject.ContainsKey("RelatedControls"))
+									{
+										foreach (JsonValue relatedControlValue in itemObject["RelatedControls"])
+										{
+											item.RelatedControls.Add(relatedControlValue);
+										}
+									}
+
+									group.Items.Add(item);
 								}
 							}
 
-							if (itemObject.ContainsKey("RelatedControls"))
+							if (!Groups.Any(g => g.Title == group.Title))
 							{
-								foreach (JValue relatedControlValue in itemObject["RelatedControls"])
-								{
-									item.RelatedControls.Add(relatedControlValue.Value<string>());
-								}
+								Groups.Add(group);
 							}
-
-							group.Items.Add(item);
-						}
-
-						if (!Groups.Any(g => g.Title == group.Title))
-						{
-							Groups.Add(group);
 						}
 					}
 				}
@@ -268,21 +275,21 @@ namespace AppUIBasics.Data
                 foreach (JsonValue groupValue in jsonArray)
                 {
                     JsonObject groupObject = groupValue.GetObject();
-                    ControlInfoDataGroup group = new ControlInfoDataGroup(groupObject["UniqueId"].Value<string>(),
-                                                                          groupObject["Title"].Value<string>(),
-                                                                          groupObject["Subtitle"].Value<string>(),
-                                                                          groupObject["ImagePath"].Value<string>(),
-                                                                          groupObject["Description"].Value<string>());
+                    ControlInfoDataGroup group = new ControlInfoDataGroup(groupObject["UniqueId"],
+                                                                          groupObject["Title"],
+                                                                          groupObject["Subtitle"],
+                                                                          groupObject["ImagePath"],
+                                                                          groupObject["Description"]);
 
                     foreach (JsonValue itemValue in groupObject["Items"].GetArray())
                     {
                         JsonObject itemObject = itemValue.GetObject();
-                        var item = new ControlInfoDataItem(itemObject["UniqueId"].Value<string>(),
-                                                                itemObject["Title"].Value<string>(),
-                                                                itemObject["Subtitle"].Value<string>(),
-                                                                itemObject["ImagePath"].Value<string>(),
-                                                                itemObject["Description"].Value<string>(),
-                                                                itemObject["Content"].Value<string>(),
+                        var item = new ControlInfoDataItem(itemObject["UniqueId"],
+                                                                itemObject["Title"],
+                                                                itemObject["Subtitle"],
+                                                                itemObject["ImagePath"],
+                                                                itemObject["Description"],
+                                                                itemObject["Content"],
                                                                 itemObject["IsNew"].GetBoolean());
 
                         if (itemObject.ContainsKey("Docs"))
@@ -290,7 +297,7 @@ namespace AppUIBasics.Data
                             foreach (JsonValue docValue in itemObject["Docs"].GetArray())
                             {
                                 JsonObject docObject = docValue.GetObject();
-                                item.Docs.Add(new ControlInfoDocLink(docObject["Title"].Value<string>(), docObject["Uri"].Value<string>()));
+                                item.Docs.Add(new ControlInfoDocLink(docObject["Title"], docObject["Uri"]));
                             }
                         }
 
@@ -298,7 +305,7 @@ namespace AppUIBasics.Data
                         {
                             foreach (JsonValue relatedControlValue in itemObject["RelatedControls"].GetArray())
                             {
-                                item.RelatedControls.Add(relatedControlValue.Value<string>());
+                                item.RelatedControls.Add(relatedControlValue);
                             }
                         }
 
@@ -313,5 +320,5 @@ namespace AppUIBasics.Data
             }
 #endif
 		}
-    }
+	}
 }
