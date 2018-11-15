@@ -22,7 +22,7 @@
     <ResourcesDirectory>..\AppUIBasics.Shared\Strings</ResourcesDirectory>
     <NoWarn>Uno0001</NoWarn>
     <AndroidKeyStore>true</AndroidKeyStore>
-    <AndroidSigningKeyStore>..\..\..build\nventive.keystore</AndroidSigningKeyStore>
+    <AndroidSigningKeyStore>..\..\..\..\build\nventive.keystore</AndroidSigningKeyStore>
     <AndroidSigningStorePass>$(nventivekeystore_pwd)</AndroidSigningStorePass>
     <AndroidSigningKeyAlias>$(nventivekeystore_alias)</AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>$(nventivekeystore_aliaspwd)</AndroidSigningKeyPass>
