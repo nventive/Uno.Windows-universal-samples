@@ -219,12 +219,14 @@ namespace AppUIBasics
 
             Frame rootFrame = GetRootFrame();
 
-            string savedTheme = ApplicationData.Current.LocalSettings.Values[SelectedAppThemeKey]?.ToString();
+#if NETFX_CORE
+			string savedTheme = ApplicationData.Current.LocalSettings.Values[SelectedAppThemeKey]?.ToString();
 
             if (savedTheme != null)
             {
                 RootTheme = GetEnum<ElementTheme>(savedTheme);
             }
+#endif
 
             Type targetPageType = typeof(AllControlsPage);
             string targetPageArguments = string.Empty;
