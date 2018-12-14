@@ -35,7 +35,7 @@ namespace AppUIBasics.Data
     /// </summary>
     public class ControlInfoDataItem
     {
-        public ControlInfoDataItem(String uniqueId, String title, String subtitle, String imagePath, String description, String content, bool isNew)
+        public ControlInfoDataItem(string uniqueId, string title, string subtitle, string imagePath, string description, string content, bool isNew, bool isCurrentlySupported)
         {
             this.UniqueId = uniqueId;
             this.Title = title;
@@ -44,24 +44,21 @@ namespace AppUIBasics.Data
             this.ImagePath = imagePath;
             this.Content = content;
             this.IsNew = isNew;
-            this.Docs = new ObservableCollection<ControlInfoDocLink>();
-            this.RelatedControls = new ObservableCollection<string>();
-        }
+            this.IsCurrentlySupported = isCurrentlySupported;
+		}
 
-        public string UniqueId { get; private set; }
-        public string Title { get; private set; }
-        public string Subtitle { get; private set; }
-        public string Description { get; private set; }
-        public string ImagePath { get; private set; }
-        public string Content { get; private set; }
-        public bool IsNew { get; private set; }
-        public ObservableCollection<ControlInfoDocLink> Docs { get; private set; }
-        public ObservableCollection<string> RelatedControls { get; private set; }
+        public string UniqueId { get; }
+        public string Title { get; }
+        public string Subtitle { get; }
+        public string Description { get; }
+        public string ImagePath { get; }
+        public string Content { get; }
+        public bool IsNew { get; }
+        public bool IsCurrentlySupported { get; }
+		public ObservableCollection<ControlInfoDocLink> Docs { get; } = new ObservableCollection<ControlInfoDocLink>();
+		public ObservableCollection<string> RelatedControls { get; } = new ObservableCollection<string>();
 
-        public override string ToString()
-        {
-            return this.Title;
-        }
+		public override string ToString() => this.Title;
     }
 
     public class ControlInfoDocLink
@@ -71,37 +68,35 @@ namespace AppUIBasics.Data
             this.Title = title;
             this.Uri = uri;
         }
-        public string Title { get; private set; }
-        public string Uri { get; private set; }
-    }
 
+        public string Title { get; }
+        public string Uri { get; }
+    }
 
     /// <summary>
     /// Generic group data model.
     /// </summary>
     public class ControlInfoDataGroup
     {
-        public ControlInfoDataGroup(String uniqueId, String title, String subtitle, String imagePath, String description)
+        public ControlInfoDataGroup(String uniqueId, String title, String subtitle, String imagePath, String description, bool isHidden)
         {
             this.UniqueId = uniqueId;
             this.Title = title;
             this.Subtitle = subtitle;
             this.Description = description;
             this.ImagePath = imagePath;
-            this.Items = new ObservableCollection<ControlInfoDataItem>();
+			this.IsHidden = isHidden;
         }
 
-        public string UniqueId { get; private set; }
-        public string Title { get; private set; }
-        public string Subtitle { get; private set; }
-        public string Description { get; private set; }
-        public string ImagePath { get; private set; }
-        public ObservableCollection<ControlInfoDataItem> Items { get; private set; }
+        public string UniqueId { get; }
+        public string Title { get; }
+        public string Subtitle { get; }
+        public string Description { get; }
+        public string ImagePath { get; }
+		public bool IsHidden { get; }
+        public ObservableCollection<ControlInfoDataItem> Items { get; } = new ObservableCollection<ControlInfoDataItem>();
 
-        public override string ToString()
-        {
-            return this.Title;
-        }
+		public override string ToString() => this.Title;
     }
 
     /// <summary>
@@ -174,151 +169,142 @@ namespace AppUIBasics.Data
             return null;
         }
 
-        private async Task GetControlInfoDataAsync()
-        {
+		private async Task GetControlInfoDataAsync()
+		{
 			lock (_lock)
-            {
-                if (this.Groups.Count() != 0)
-                {
-                    return;
-                }
-            }
+			{
+				if (this.Groups.Count() != 0)
+				{
+					return;
+				}
+			}
 
+#if true
 			var name = this.GetType().GetTypeInfo().Assembly.GetManifestResourceNames().FirstOrDefault(n => n.EndsWith("ControlInfoData.json"));
 
-			if(name == null)
+			if (name == null)
 			{
 				throw new InvalidOperationException($"Unable to find ControlInfoData.json in embedded resources");
 			}
 
 			using (var s = new StreamReader(this.GetType().GetTypeInfo().Assembly.GetManifestResourceStream(name)))
 			{
-				var jsonObject = JsonObject.Load(s);
-
-				var jsonArray = jsonObject["Groups"];
+				var jsonValue = JsonValue.Load(s);
 
 				lock (_lock)
 				{
-					foreach (JsonValue groupValue in jsonArray)
-					{
-						if (groupValue is JsonObject groupObject)
-						{
-							ControlInfoDataGroup group = new ControlInfoDataGroup(groupObject["UniqueId"],
-																				  groupObject["Title"],
-																				  groupObject["Subtitle"],
-																				  groupObject["ImagePath"],
-																				  groupObject["Description"]);
+					var groups = ParseJson(jsonValue);
+					RemoveNotCurrentlySupportedControl(groups);
 
-							foreach (JsonValue itemValue in groupObject["Items"])
-							{
-								if (itemValue is JsonObject itemObject)
-								{
-									var item = new ControlInfoDataItem(itemObject["UniqueId"],
-																			itemObject["Title"],
-																			itemObject["Subtitle"],
-																			itemObject["ImagePath"],
-																			itemObject["Description"],
-																			itemObject["Content"],
-																			itemObject["IsNew"]);
-
-									if (itemObject.ContainsKey("Docs"))
-									{
-										foreach (JsonValue docValue in itemObject["Docs"])
-										{
-											if (docValue is JsonObject docObject)
-											{
-												item.Docs.Add(new ControlInfoDocLink(docObject["Title"], docObject["Uri"]));
-											}
-										}
-									}
-
-									if (itemObject.ContainsKey("RelatedControls"))
-									{
-										foreach (JsonValue relatedControlValue in itemObject["RelatedControls"])
-										{
-											item.RelatedControls.Add(relatedControlValue);
-										}
-									}
-
-									group.Items.Add(item);
-								}
-							}
-
-							if (!Groups.Any(g => g.Title == group.Title))
-							{
-								Groups.Add(group);
-							}
-						}
-					}
+					groups.ForEach(Groups.Add);
 				}
 			}
-
-#if false
-			lock (_lock)
-            {
-                if (this.Groups.Count() != 0)
-                {
-                    return;
-                }
-            }
-
-            Uri dataUri = new Uri("ms-appx:///DataModel/ControlInfoData.json");
+#else
+			Uri dataUri = new Uri("ms-appx:///DataModel/ControlInfoData.json");
 
             StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(dataUri);
             string jsonText = await FileIO.ReadTextAsync(file);
 
-            JsonObject jsonObject = JsonObject.Parse(jsonText);
-            JsonArray jsonArray = jsonObject["Groups"].GetArray();
+            var jsonValue = JsonValue.Parse(jsonText);
 
             lock (_lock)
-            {
-                foreach (JsonValue groupValue in jsonArray)
-                {
-                    JsonObject groupObject = groupValue.GetObject();
-                    ControlInfoDataGroup group = new ControlInfoDataGroup(groupObject["UniqueId"],
-                                                                          groupObject["Title"],
-                                                                          groupObject["Subtitle"],
-                                                                          groupObject["ImagePath"],
-                                                                          groupObject["Description"]);
+			{
+				var groups = ParseJson(jsonValue);
+				RemoveNotCurrentlySupportedControl(groups);
 
-                    foreach (JsonValue itemValue in groupObject["Items"].GetArray())
-                    {
-                        JsonObject itemObject = itemValue.GetObject();
-                        var item = new ControlInfoDataItem(itemObject["UniqueId"],
-                                                                itemObject["Title"],
-                                                                itemObject["Subtitle"],
-                                                                itemObject["ImagePath"],
-                                                                itemObject["Description"],
-                                                                itemObject["Content"],
-                                                                itemObject["IsNew"].GetBoolean());
-
-                        if (itemObject.ContainsKey("Docs"))
-                        {
-                            foreach (JsonValue docValue in itemObject["Docs"].GetArray())
-                            {
-                                JsonObject docObject = docValue.GetObject();
-                                item.Docs.Add(new ControlInfoDocLink(docObject["Title"], docObject["Uri"]));
-                            }
-                        }
-
-                        if (itemObject.ContainsKey("RelatedControls"))
-                        {
-                            foreach (JsonValue relatedControlValue in itemObject["RelatedControls"].GetArray())
-                            {
-                                item.RelatedControls.Add(relatedControlValue);
-                            }
-                        }
-
-                        group.Items.Add(item);
-                    }
-
-                    if (!Groups.Any(g => g.Title == group.Title))
-                    {
-                        Groups.Add(group);
-                    }
-                }
-            }
+				groups.ForEach(Groups.Add);
+			}
 #endif
+		}
+
+		private List<ControlInfoDataGroup> ParseJson(JsonValue jsonValue)
+		{
+			var results = new List<ControlInfoDataGroup>();
+
+			foreach (var groupObject in jsonValue["Groups"].OfType<JsonObject>())
+			{
+				var group = new ControlInfoDataGroup(
+					groupObject["UniqueId"],
+					groupObject["Title"],
+					groupObject["Subtitle"],
+					groupObject["ImagePath"],
+					groupObject["Description"],
+					groupObject["IsHidden"]
+				);
+
+				foreach (var itemObject in groupObject["Items"].OfType<JsonObject>())
+				{
+					var item = new ControlInfoDataItem(
+						itemObject["UniqueId"],
+						itemObject["Title"],
+						itemObject["Subtitle"],
+						itemObject["ImagePath"],
+						itemObject["Description"],
+						itemObject["Content"],
+						itemObject["IsNew"],
+						itemObject["IsCurrentlySupported"]
+					);
+
+					if (itemObject.ContainsKey("Docs"))
+					{
+						foreach (JsonValue docValue in itemObject["Docs"])
+						{
+							if (docValue is JsonObject docObject)
+							{
+								item.Docs.Add(new ControlInfoDocLink(docObject["Title"], docObject["Uri"]));
+							}
+						}
+					}
+
+					if (itemObject.ContainsKey("RelatedControls"))
+					{
+						foreach (JsonValue relatedControlValue in itemObject["RelatedControls"])
+						{
+							item.RelatedControls.Add(relatedControlValue);
+						}
+					}
+
+					group.Items.Add(item);
+				}
+
+				if (!Groups.Any(g => g.Title == group.Title))
+				{
+					results.Add(group);
+				}
+			}
+
+			return results;
+		}
+
+		private void RemoveNotCurrentlySupportedControl(IList<ControlInfoDataGroup> groups)
+		{
+			// remove hidden groups
+			foreach	(var group in groups.Where(x => x.IsHidden).ToArray())
+			{
+				groups.Remove(group);
+			}
+
+			// remove not supported controls
+			foreach (var group in groups)
+			{
+				foreach (var item in group.Items.Where(x => !x.IsCurrentlySupported).ToArray())
+				{
+					group.Items.Remove(item);
+				}
+			}
+
+			// remove not supported controls from ControlInfoDataItem.RelatedControls
+			var supportedControls = groups
+				.SelectMany(x => x.Items)
+				.Select(x => x.UniqueId)
+				.ToList();
+			foreach (var item in groups.SelectMany(x => x.Items))
+			{
+				foreach (var relatedControl in item.RelatedControls.Where(x => !supportedControls.Contains(x)).ToArray())
+				{
+					item.RelatedControls.Remove(relatedControl);
+				}
+			}
 		}
 	}
 }
