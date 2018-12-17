@@ -51,6 +51,8 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
+        <!--
+        UNO TODO Named resources are not supported
         <Interactivity:Interaction.Behaviors>
             <Core:EventTriggerBehavior EventName="Loaded">
                 <Media:ControlStoryboardAction Storyboard="{StaticResource PopInStoryboard}" />
@@ -59,6 +61,7 @@
                 <Media:ControlStoryboardAction Storyboard="{StaticResource PopOutStoryboard}" />
             </Core:EventTriggerBehavior>
         </Interactivity:Interaction.Behaviors>
+        -->
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
