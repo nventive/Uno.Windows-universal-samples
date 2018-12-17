@@ -13,7 +13,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="using:AppUIBasics"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
+	    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	    xmlns:not_supported="http://wasm.platform.uno/not-supported"
+		mc:Ignorable="d not_supported">
     <StackPanel>
         <local:ControlExample x:Name="Example1" HeaderText="An AppBarToggleButton with a symbol icon.">
             <local:ControlExample.Example>
@@ -74,7 +76,7 @@
                 </RichTextBlock>
             </local:ControlExample.Xaml>
         </local:ControlExample>
-        <local:ControlExample x:Name="Example4" HeaderText="A three-state AppBarToggleButton with a path icon.">
+        <not_supported:ControlExample x:Name="Example4" HeaderText="A three-state AppBarToggleButton with a path icon.">
             <local:ControlExample.Example>
                 <StackPanel Orientation="Horizontal">
                     <!-- App bar button with path icon. -->
@@ -97,6 +99,6 @@
                     <Paragraph>&lt;/AppBarToggleButton&gt;</Paragraph>
                 </RichTextBlock>
             </local:ControlExample.Xaml>
-        </local:ControlExample>
+        </not_supported:ControlExample>
     </StackPanel>
 </Page>

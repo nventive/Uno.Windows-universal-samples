@@ -63,7 +63,8 @@ namespace AppUIBasics.ControlPages
                 Button1.IsCompact =
                 Button2.IsCompact =
                 Button3.IsCompact =
-                Button4.IsCompact = (bool)toggle.IsChecked;
+                //Button4.IsCompact = 
+					(bool)toggle.IsChecked;
             }
         }
 
@@ -86,9 +87,9 @@ namespace AppUIBasics.ControlPages
                     case "Button3":
                         Control3Output.Text = "You clicked: " + name;
                         break;
-                    case "Button4":
-                        Control4Output.Text = "You clicked: " + name;
-                        break;
+                    //case "Button4":
+                    //    Control4Output.Text = "You clicked: " + name;
+                    //    break;
                 }
             }
         }
