@@ -27,7 +27,12 @@ namespace AppUIBasics.ControlPages
         private static int _clicks = 0;
         private void RepeatButton_Click(object sender, RoutedEventArgs e)
         {
-            _clicks += 1;
+			// add a multiplier to the increment otherwise it would 
+			// take too long to fill the bar with holding not working
+			// todo: remove this multiplier when RepeatButton is fixed
+			const int SingleClickMultiplier = 5;
+
+            _clicks += 1 * SingleClickMultiplier;
             Control2Output.Text = _clicks.ToString();
             DeterminateProgressValue.Text = _clicks.ToString();
             ProgressBar2.Value = _clicks;
