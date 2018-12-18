@@ -15,7 +15,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:AppUIBasics"
     xmlns:common="using:AppUIBasics.Common"
-    xmlns:data="using:AppUIBasics.Data">
+    xmlns:data="using:AppUIBasics.Data"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:not_supported="http://wasm.platform.uno/not-supported"
+	mc:Ignorable="not_supported">
     <Page.Resources>
         <DataTemplate x:Key="ImageTextListTemplate" x:DataType="data:ControlInfoDataItem">
             <RelativePanel>
@@ -78,9 +81,9 @@
                 <ListView x:Name="Control1"
                     ItemsSource="{x:Bind Items}"
                     ItemTemplate="{StaticResource ImageTextListTemplate}"
-                    CanDragItems="{x:Bind DragCheckBox.IsChecked.Value, Mode=OneWay}"
+                    not_supported:CanDragItems="{x:Bind DragCheckBox.IsChecked.Value, Mode=OneWay}"
                     IsItemClickEnabled="{x:Bind ItemClickCheckBox.IsChecked.Value, Mode=OneWay}"
-                    IsSwipeEnabled="{x:Bind SwipeCheckBox.IsChecked.Value, Mode=OneWay}"
+                    not_supported:IsSwipeEnabled="{x:Bind SwipeCheckBox.IsChecked.Value, Mode=OneWay}"
                     SelectionChanged="Control1_SelectionChanged"
                     ItemClick="Control1_ItemClick"
                     Height="400" />
@@ -93,27 +96,49 @@
 
             <local:ControlExample.Options>
                 <StackPanel>
-                    <TextBlock Text="ItemTemplate" Margin="0,0,0,10" />
-                    <RadioButton Content="Image overlay" GroupName="Template" Tag="ImageOverlayTemplate"
+                    <not_supported:TextBlock Text="ItemTemplate" Margin="0,0,0,10" />
+                    <not_supported:RadioButton Content="Image overlay" GroupName="Template" Tag="ImageOverlayTemplate"
                         Click="ItemTemplate_Click" />
-                    <RadioButton Content="Icon/Text" GroupName="Template" Tag="IconTextTemplate"
+                    <not_supported:RadioButton Content="Icon/Text" GroupName="Template" Tag="IconTextTemplate"
                         Click="ItemTemplate_Click" />
-                    <RadioButton Content="Image/Text" GroupName="Template" Tag="ImageTextListTemplate"
+                    <not_supported:RadioButton Content="Image/Text" GroupName="Template" Tag="ImageTextListTemplate"
                         Click="ItemTemplate_Click" IsChecked="True" />
-                    <RadioButton Content="Text" GroupName="Template" Tag="ImageTextListMailFolderTemplate"
+                    <not_supported:RadioButton Content="Text" GroupName="Template" Tag="ImageTextListMailFolderTemplate"
                         Click="ItemTemplate_Click" />
-                    <ToggleButton Content="Reverse FlowDirection" Click="FlowDirectionCheckBox_Click" Margin="0,8,0,0" />
+					
+                    <not_supported:ToggleButton Content="Reverse FlowDirection" Click="FlowDirectionCheckBox_Click" Margin="0,8,0,0" />
+					
                     <TextBlock Text="ListView Properties" Margin="0,16,0,10" />
                     <CheckBox x:Name="ItemClickCheckBox" Content="IsItemClickEnabled" Click="ItemClickCheckBox_Click" />
-                    <CheckBox x:Name="SwipeCheckBox" Content="IsSwipeEnabled" />
-                    <CheckBox x:Name="DragCheckBox" Content="CanDragItems" />
-                    <ComboBox SelectionChanged="SelectionModeComboBox_SelectionChanged" Header="SelectionMode"
+                    <not_supported:CheckBox x:Name="SwipeCheckBox" Content="IsSwipeEnabled" />
+                    <not_supported:CheckBox x:Name="DragCheckBox" Content="CanDragItems" />
+					
+                    <not_supported:ComboBox SelectionChanged="SelectionModeComboBox_SelectionChanged" Header="SelectionMode"
                         SelectedIndex="1" Margin="0,12,0,0">
                         <x:String>None</x:String>
                         <x:String>Single</x:String>
                         <x:String>Multiple</x:String>
                         <x:String>Extended</x:String>
-                    </ComboBox>
+                    </not_supported:ComboBox>
+
+					<TextBlock Margin="0,12,0,0" Text="SelectionMode" />
+                    <RadioButton Content="None"
+									Tag="None"
+									GroupName="SelectionMode"
+									Click="SelectionMode_Click" />
+                    <RadioButton Content="Single"
+									Tag="Single"
+									IsChecked="True"
+									GroupName="SelectionMode"
+									Click="SelectionMode_Click" />
+                    <RadioButton Content="Multiple"
+									Tag="Multiple"
+									GroupName="SelectionMode"
+									Click="SelectionMode_Click" />
+					<RadioButton Content="Extended"
+									Tag="Extended"
+									GroupName="SelectionMode"
+									Click="SelectionMode_Click" />
                 </StackPanel>
             </local:ControlExample.Options>
             <local:ControlExample.Xaml>

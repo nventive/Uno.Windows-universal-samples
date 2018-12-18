@@ -71,27 +71,28 @@ namespace AppUIBasics.ControlPages
             }
         }
 
-        private void SelectionModeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		// private void SelectionModeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void SelectionMode_Click(object sender, RoutedEventArgs e)
         {
-            if (Control1 != null)
-            {
-                string colorName = e.AddedItems[0].ToString();
-                switch (colorName)
-                {
-                    case "None":
-                        Control1.SelectionMode = ListViewSelectionMode.None;
-                        SelectionOutput.Text = string.Empty;
-                        break;
-                    case "Single":
-                        Control1.SelectionMode = ListViewSelectionMode.Single;
-                        break;
-                    case "Multiple":
-                        Control1.SelectionMode = ListViewSelectionMode.Multiple;
-                        break;
-                    case "Extended":
-                        Control1.SelectionMode = ListViewSelectionMode.Extended;
-                        break;
-                }
+			// switch (e.AddedItems[0].ToString())
+			switch ((sender as FrameworkElement).Tag.ToString())
+			{
+                case "None":
+                    Control1.SelectionMode = ListViewSelectionMode.None;
+                    SelectionOutput.Text = string.Empty;
+                    break;
+
+                case "Single":
+                    Control1.SelectionMode = ListViewSelectionMode.Single;
+                    break;
+
+                case "Multiple":
+                    Control1.SelectionMode = ListViewSelectionMode.Multiple;
+                    break;
+
+                case "Extended":
+                    Control1.SelectionMode = ListViewSelectionMode.Extended;
+                    break;
             }
         }
     }
