@@ -48,8 +48,8 @@
             <StackPanel x:Name="Control2" Grid.Row="4">
                 <StackPanel>
                     <TextBlock Text="Background" Style="{ThemeResource BaseTextBlockStyle}" />
-                    <ScrollViewer VerticalScrollMode="Disabled" HorizontalScrollMode="Auto"
-                            HorizontalScrollBarVisibility="Hidden">
+                    <!--<ScrollViewer VerticalScrollMode="Disabled" HorizontalScrollMode="Auto"
+                            HorizontalScrollBarVisibility="Hidden">-->
                         <StackPanel Orientation="Horizontal">
                             <RadioButton Content="Green" Tag="Green" GroupName="BGColor" Checked="BGRadioButton_Checked" />
                             <RadioButton Content="Yellow" Tag="Yellow" GroupName="BGColor"
@@ -58,12 +58,12 @@
                             <RadioButton Content="White" Tag="White" GroupName="BGColor" Checked="BGRadioButton_Checked"
                                     IsChecked="True" Margin="8,0"/>
                         </StackPanel>
-                    </ScrollViewer>
+                    <!--</ScrollViewer>-->
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Text="BorderBrush" Style="{ThemeResource BaseTextBlockStyle}" />
-                    <ScrollViewer VerticalScrollMode="Disabled" HorizontalScrollMode="Auto"
-                            HorizontalScrollBarVisibility="Hidden">
+                    <!--<ScrollViewer VerticalScrollMode="Disabled" HorizontalScrollMode="Auto"
+                            HorizontalScrollBarVisibility="Hidden">-->
                         <StackPanel Orientation="Horizontal">
                             <RadioButton Content="Green" Tag="Green" GroupName="BorderBrush"
                                     Checked="BorderRadioButton_Checked" />
@@ -74,7 +74,7 @@
                             <RadioButton Content="White" Tag="White" GroupName="BorderBrush"
                                     Checked="BorderRadioButton_Checked" Margin="8,0"/>
                         </StackPanel>
-                    </ScrollViewer>
+                    <!--</ScrollViewer>-->
                 </StackPanel>
                 <Border x:Name="Control2Output" BorderThickness="10" BorderBrush="#FFFFD700" Background="#FFFFFFFF"
                         Height="50" Margin="0,10,0,10" />
