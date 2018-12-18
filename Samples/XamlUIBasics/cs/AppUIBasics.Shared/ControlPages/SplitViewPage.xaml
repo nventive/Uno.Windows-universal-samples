@@ -3,7 +3,10 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:AppUIBasics"
-    xmlns:controlPages="using:AppUIBasics.ControlPages">
+    xmlns:controlPages="using:AppUIBasics.ControlPages"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:not_supported="http://wasm.platform.uno/not-supported"
+	mc:Ignorable="not_supported">
     <Page.Resources>
         <DataTemplate x:Key="NavLinkItemTemplate" x:DataType="controlPages:NavLink">
             <StackPanel Orientation="Horizontal" Margin="2,0,0,0">
@@ -11,10 +14,10 @@
                 <TextBlock Text="{x:Bind Label}" Margin="24,0,0,0" VerticalAlignment="Center" />
             </StackPanel>
         </DataTemplate>
-    </Page.Resources>
+	</Page.Resources>
 
     <StackPanel>
-        <VisualStateManager.VisualStateGroups>
+        <not_supported:VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState x:Name="SystemControlBackgroundChromeMediumLowBrush" />
                 <VisualState x:Name="Red">
@@ -36,12 +39,12 @@
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
+        </not_supported:VisualStateManager.VisualStateGroups>
         <local:ControlExample HeaderText="A basic SplitView.">
 
             <Grid Height="300" VerticalAlignment="Top">
                 <SplitView x:Name="splitView"
-                    PaneBackground="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}"
+                    PaneBackground="LightGray"
                     IsPaneOpen="{x:Bind togglePaneButton.IsChecked, Mode=TwoWay, Converter={StaticResource nullableBooleanToBooleanConverter}}"
                     OpenPaneLength="{x:Bind openPaneLengthSlider.Value, Mode=OneWay}"
                     CompactPaneLength="{x:Bind compactPaneLengthSlider.Value, Mode=OneWay}"
@@ -85,25 +88,38 @@
                     <ToggleSwitch OffContent="Left" OnContent="Right" Header="Placement" Toggled="PanePlacement_Toggled"
                         Margin="0,12,0,0" MinWidth="120" />
 
-                    <ComboBox x:Name="displayModeCombobox" SelectionChanged="displayModeCombobox_SelectionChanged"
+                    <not_supported:ComboBox x:Name="displayModeCombobox" SelectionChanged="displayModeCombobox_SelectionChanged"
                         Width="196" SelectedIndex="0" Margin="0,4,0,0" VerticalAlignment="Center" Header="DisplayMode">
                         <ComboBoxItem>Inline</ComboBoxItem>
                         <ComboBoxItem>CompactInline</ComboBoxItem>
                         <ComboBoxItem>Overlay</ComboBoxItem>
                         <ComboBoxItem>CompactOverlay</ComboBoxItem>
-                    </ComboBox>
+                    </not_supported:ComboBox>
+					<TextBlock Margin="0,12,0,0" Text="DisplayMode" />
+					<RadioButton GroupName="DisplayMode" Click="DisplayMode_Click" Content="Inline" Tag="Inline" />
+					<RadioButton GroupName="DisplayMode" Click="DisplayMode_Click" Content="CompactInline" Tag="CompactInline" />
+					<RadioButton GroupName="DisplayMode" Click="DisplayMode_Click" Content="Overlay" Tag="Overlay" />
+					<RadioButton GroupName="DisplayMode" Click="DisplayMode_Click" Content="CompactOverlay" Tag="CompactOverlay" IsChecked="True" />
 
-                    <ComboBox x:Name="paneBackgroundCombobox" Width="196" SelectedIndex="0" VerticalAlignment="Center"
+					<not_supported:ComboBox x:Name="paneBackgroundCombobox" Width="196" SelectedIndex="0" VerticalAlignment="Center"
                         Header="PaneBackground" Margin="0,12,0,0" SelectionChanged="paneBackgroundCombobox_SelectionChanged">
                         <ComboBoxItem>SystemControlBackgroundChromeMediumLowBrush</ComboBoxItem>
                         <ComboBoxItem>Red</ComboBoxItem>
                         <ComboBoxItem>Blue</ComboBoxItem>
                         <ComboBoxItem>Green</ComboBoxItem>
-                    </ComboBox>
-
+                    </not_supported:ComboBox>
+					<TextBlock Margin="0,12,0,0" Text="Background" />
+					<RadioButton GroupName="Background" Click="Background_Click" Content="LightGray" Tag="LightGray"
+								 IsChecked="True" />
+					<RadioButton GroupName="Background" Click="Background_Click" Content="Red" Tag="Red" />
+					<RadioButton GroupName="Background" Click="Background_Click" Content="Blue" Tag="Blue" />
+					<RadioButton GroupName="Background" Click="Background_Click" Content="Green" Tag="Green" />
+					
+					<TextBlock>OpenPaneLength: <Run Text="{x:Bind openPaneLengthSlider.Value, Converter={StaticResource valueToStringConverter}, Mode=OneWay}" /></TextBlock>
                     <Slider x:Name="openPaneLengthSlider" Header="OpenPaneLength" Value="256" Minimum="128" Maximum="500"
                         Width="196" SnapsTo="StepValues" StepFrequency="8" IsFocusEngagementEnabled="False" Margin="0,12,0,0" />
 
+					<TextBlock>CompactPaneLength: <Run Text="{x:Bind compactPaneLengthSlider.Value, Converter={StaticResource valueToStringConverter}, Mode=OneWay}" /></TextBlock>
                     <Slider x:Name="compactPaneLengthSlider" Header="CompactPaneLength" Value="48" Minimum="24"
                         Maximum="128" Width="196" SnapsTo="StepValues" StepFrequency="8" IsFocusEngagementEnabled="False"/>
                 </StackPanel>
@@ -111,7 +127,7 @@
 
             <local:ControlExample.Xaml>
                 <RichTextBlock Style="{StaticResource XamlCodeRichTextBlockStyle}">
-                    <Paragraph>&lt;SplitView x:Name="splitView" PaneBackground="<Run x:Name="PaneBackgroundRun" Text="{}{ThemeResource SystemControlBackgroundChromeMediumLowBrush}" />"
+                    <Paragraph>&lt;SplitView x:Name="splitView" PaneBackground="<Run x:Name="PaneBackgroundRun" Text="LightGray" />"
                         IsPaneOpen="<Run Text="{x:Bind splitView.IsPaneOpen, Mode=OneWay, Converter={StaticResource valueToStringConverter}}" />"
                         OpenPaneLength="<Run Text="{x:Bind openPaneLengthSlider.Value, Mode=OneWay, Converter={StaticResource valueToStringConverter}}" />"
                         CompactPaneLength="<Run Text="{x:Bind compactPaneLengthSlider.Value, Mode=OneWay, Converter={StaticResource valueToStringConverter}}" />"
