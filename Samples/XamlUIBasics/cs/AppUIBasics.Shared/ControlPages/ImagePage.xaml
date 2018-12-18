@@ -1,7 +1,9 @@
 ﻿<Page x:Class="AppUIBasics.ControlPages.ImagePage" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="using:AppUIBasics"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:not_supported="http://wasm.platform.uno/not-supported"
+		mc:Ignorable="d not_supported">
     <StackPanel>
         <local:ControlExample x:Name="Example1" HeaderText="A basic image from a local file.">
 
@@ -39,7 +41,7 @@
             </local:ControlExample.Xaml>
         </local:ControlExample>
 
-        <local:ControlExample x:Name="Example3" HeaderText="Image stretching.">
+        <not_supported:ControlExample x:Name="Example3" HeaderText="Image stretching.">
 
             <Image x:Name="StretchImage" Stretch="None" Height="100" Width="100" Source="/Assets/valley.jpg" />
 
@@ -61,7 +63,7 @@
                     </Paragraph>
                 </RichTextBlock>
             </local:ControlExample.Xaml>
-        </local:ControlExample>
+        </not_supported:ControlExample>
 
         <local:ControlExample x:Name="Example4" HeaderText="Nine grid images.">
 
