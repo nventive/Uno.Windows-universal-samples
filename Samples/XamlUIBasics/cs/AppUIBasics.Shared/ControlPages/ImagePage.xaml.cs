@@ -28,19 +28,19 @@ namespace AppUIBasics.ControlPages
             this.InitializeComponent();
         }
 
-        private void ImageStretch_Checked(object sender, RoutedEventArgs e)
-        {
-            if (StretchImage != null)
-            {
-                var strStretch = (sender as RadioButton).Content.ToString();
-                var stretch = (Stretch)Enum.Parse(typeof(Stretch), strStretch);
-                StretchImage.Stretch = stretch;
+        //private void ImageStretch_Checked(object sender, RoutedEventArgs e)
+        //{
+        //    if (StretchImage != null)
+        //    {
+        //        var strStretch = (sender as RadioButton).Content.ToString();
+        //        var stretch = (Stretch)Enum.Parse(typeof(Stretch), strStretch);
+        //        StretchImage.Stretch = stretch;
 
-                if (StretchLabel != null)
-                {
-                    StretchLabel.Text = strStretch;
-                }
-            }
-        }
+        //        if (StretchLabel != null)
+        //        {
+        //            StretchLabel.Text = strStretch;
+        //        }
+        //    }
+        //}
     }
 }

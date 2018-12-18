@@ -9,6 +9,7 @@
 //*********************************************************
 using AppUIBasics.Common;
 using AppUIBasics.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml;
@@ -34,14 +35,14 @@ namespace AppUIBasics.ControlPages
             Items = ControlInfoDataSource.Instance.Groups.Take(3).SelectMany(g => g.Items).ToList();
         }
 
-        private void ItemTemplate_Click(object sender, RoutedEventArgs e)
-        {
-            var template = (sender as FrameworkElement).Tag.ToString();
-            Control1.ItemTemplate = (DataTemplate)this.Resources[template];
-            itemTemplate.Text = template;
-        }
+		private void ItemTemplate_Click(object sender, RoutedEventArgs e)
+		{
+			var template = (sender as FrameworkElement).Tag.ToString();
+			Control1.ItemTemplate = (DataTemplate)this.Resources[template];
+			itemTemplate.Text = template;
+		}
 
-        private void Control1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void Control1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (sender is GridView gridView)
             {
@@ -71,27 +72,28 @@ namespace AppUIBasics.ControlPages
             }
         }
 
-        private void SelectionModeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		// private void SelectionModeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void SelectionMode_Click(object sender, RoutedEventArgs e)
         {
-            if (Control1 != null)
+			// switch (e.AddedItems[0].ToString())
+            switch ((sender as FrameworkElement).Tag.ToString())
             {
-                string colorName = e.AddedItems[0].ToString();
-                switch (colorName)
-                {
-                    case "None":
-                        Control1.SelectionMode = ListViewSelectionMode.None;
-                        SelectionOutput.Text = string.Empty;
-                        break;
-                    case "Single":
-                        Control1.SelectionMode = ListViewSelectionMode.Single;
-                        break;
-                    case "Multiple":
-                        Control1.SelectionMode = ListViewSelectionMode.Multiple;
-                        break;
-                    case "Extended":
-                        Control1.SelectionMode = ListViewSelectionMode.Extended;
-                        break;
-                }
+                case "None":
+                    Control1.SelectionMode = ListViewSelectionMode.None;
+                    SelectionOutput.Text = string.Empty;
+                    break;
+
+                case "Single":
+                    Control1.SelectionMode = ListViewSelectionMode.Single;
+                    break;
+
+                case "Multiple":
+                    Control1.SelectionMode = ListViewSelectionMode.Multiple;
+                    break;
+
+                case "Extended":
+                    Control1.SelectionMode = ListViewSelectionMode.Extended;
+                    break;
             }
         }
     }

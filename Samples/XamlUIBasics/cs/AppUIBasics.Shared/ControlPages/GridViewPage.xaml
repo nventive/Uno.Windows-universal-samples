@@ -14,7 +14,10 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:AppUIBasics"
-    xmlns:data="using:AppUIBasics.Data">
+    xmlns:data="using:AppUIBasics.Data"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:not_supported="http://wasm.platform.uno/not-supported"
+	mc:Ignorable="not_supported">
     <Page.Resources>
         <DataTemplate x:Key="ImageOverlayTemplate" x:DataType="data:ControlInfoDataItem">
             <Grid Width="190" Height="130" Margin="4,4,4,8">
@@ -89,9 +92,9 @@
 
                 <GridView
                     x:Name="Control1"
-                    CanDragItems="{x:Bind DragCheckBox.IsChecked.Value, Mode=OneWay}"
+                    not_supported:CanDragItems="{x:Bind DragCheckBox.IsChecked.Value, Mode=OneWay}"
                     IsItemClickEnabled="{x:Bind ItemClickCheckBox.IsChecked.Value, Mode=OneWay}"
-                    IsSwipeEnabled="{x:Bind SwipeCheckBox.IsChecked.Value, Mode=OneWay}"
+                    not_supported:IsSwipeEnabled="{x:Bind SwipeCheckBox.IsChecked.Value, Mode=OneWay}"
                     ItemClick="Control1_ItemClick"
                     ItemTemplate="{StaticResource ImageOverlayTemplate}"
                     ItemsSource="{x:Bind Items}"
@@ -105,34 +108,33 @@
             <local:ControlExample.Options>
                 <StackPanel x:Name="Control2">
                     <StackPanel>
-                        <TextBlock Margin="0,0,0,10" Text="ItemTemplate" />
-                        <RadioButton
-                            Click="ItemTemplate_Click"
-                            Content="Image overlay"
-                            GroupName="Template"
-                            IsChecked="True"
-                            Tag="ImageOverlayTemplate" />
-                        <RadioButton
-                            Click="ItemTemplate_Click"
-                            Content="Icon/Text"
-                            GroupName="Template"
-                            Tag="IconTextTemplate" />
-                        <RadioButton
-                            Click="ItemTemplate_Click"
-                            Content="Image/Text"
-                            GroupName="Template"
-                            Tag="ImageTextTemplate" />
-                        <RadioButton
-                            Click="ItemTemplate_Click"
-                            Content="Text"
-                            GroupName="Template"
-                            Tag="TextTemplate" />
-                        <ToggleButton Margin="0,8,0,0" Click="FlowDirectionCheckBox_Click" Content="Reverse FlowDirection" />
+                        <not_supported:TextBlock Text="ItemTemplate" />
+                        <not_supported:RadioButton Click="ItemTemplate_Click"
+									 Content="Image overlay"
+									 GroupName="Template"
+									 IsChecked="True"
+									 Tag="ImageOverlayTemplate" />
+                        <not_supported:RadioButton Click="ItemTemplate_Click"
+									 Content="Icon/Text"
+									 GroupName="Template"
+									 Tag="IconTextTemplate" />
+                        <not_supported:RadioButton Click="ItemTemplate_Click"
+									  Content="Image/Text"
+									  GroupName="Template"
+									  Tag="ImageTextTemplate" />
+                        <not_supported:RadioButton Click="ItemTemplate_Click"
+									 Content="Text"
+									 GroupName="Template"
+									 Tag="TextTemplate" />
+						
+                        <not_supported:ToggleButton Margin="0,8,0,0" Click="FlowDirectionCheckBox_Click" Content="Reverse FlowDirection" />
+						
                         <TextBlock Margin="0,18,0,10" Text="GridView Properties" />
                         <CheckBox x:Name="ItemClickCheckBox" Click="ItemClickCheckBox_Click" Content="IsItemClickEnabled" />
-                        <CheckBox x:Name="SwipeCheckBox" Content="IsSwipeEnabled" />
-                        <CheckBox x:Name="DragCheckBox" Content="CanDragItems" />
-                        <ComboBox
+                        <not_supported:CheckBox x:Name="SwipeCheckBox" Content="IsSwipeEnabled" />
+                        <not_supported:CheckBox x:Name="DragCheckBox" Content="CanDragItems" />
+						
+						<not_supported:ComboBox
                             Margin="0,12,0,0"
                             Header="SelectionMode"
                             SelectedIndex="1"
@@ -141,8 +143,26 @@
                             <x:String>Single</x:String>
                             <x:String>Multiple</x:String>
                             <x:String>Extended</x:String>
-                        </ComboBox>
-                    </StackPanel>
+                        </not_supported:ComboBox>
+						<TextBlock Margin="0,12,0,0" Text="SelectionMode" />
+                        <RadioButton Content="None"
+									 Tag="None"
+									 GroupName="SelectionMode"
+									 Click="SelectionMode_Click" />
+                        <RadioButton Content="Single"
+									 Tag="Single"
+									 IsChecked="True"
+									 GroupName="SelectionMode"
+									 Click="SelectionMode_Click" />
+                        <RadioButton Content="Multiple"
+									 Tag="Multiple"
+									 GroupName="SelectionMode"
+									 Click="SelectionMode_Click" />
+						<RadioButton Content="Extended"
+									 Tag="Extended"
+									 GroupName="SelectionMode"
+									 Click="SelectionMode_Click" />
+					</StackPanel>
                 </StackPanel>
             </local:ControlExample.Options>
             <local:ControlExample.Xaml>
