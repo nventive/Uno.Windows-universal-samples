@@ -21,8 +21,9 @@
     <AndroidUseIntermediateDesignerFile>True</AndroidUseIntermediateDesignerFile>
     <ResourcesDirectory>..\AppUIBasics.Shared\Strings</ResourcesDirectory>
     <NoWarn>Uno0001</NoWarn>
-    <AndroidKeyStore>true</AndroidKeyStore>
-    <AndroidSigningKeyStore>..\..\..\..\build\nventive.keystore</AndroidSigningKeyStore>
+    <AndroidKeyStore>false</AndroidKeyStore>
+    <AndroidKeyStore Condition="'$(nventivekeystore_alias)'!=''">true</AndroidKeyStore>
+    <AndroidSigningKeyStore Condition="'$(nventivekeystore_alias)'!=''">..\..\..\..\build\nventive.keystore</AndroidSigningKeyStore>
     <AndroidSigningStorePass>$(nventivekeystore_pwd)</AndroidSigningStorePass>
     <AndroidSigningKeyAlias>$(nventivekeystore_alias)</AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>$(nventivekeystore_aliaspwd)</AndroidSigningKeyPass>
