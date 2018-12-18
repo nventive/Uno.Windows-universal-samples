@@ -6,7 +6,8 @@
         xmlns:converters="using:AppUIBasics.Common"
         xmlns:RS4Api="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         x:Class="AppUIBasics.ControlPages.NavigationViewPage"
-        mc:Ignorable="d">
+		xmlns:not_supported="http://wasm.platform.uno/not-supported"
+        mc:Ignorable="d not_supported">
     <Page.Resources>
         <converters:BooleanNegationConverter x:Key="NotConverter"/>
         <converters:BooleanNegationToBackButtonVisibilityConverter x:Key="BooleanNegationToBackVisibilityConverter" />
@@ -152,7 +153,7 @@
                     </Grid.ColumnDefinitions>
                     <CheckBox Content="Hide Settings button" x:Name="settingsCheck" Margin="0,0,10,0" IsChecked="False" Checked="settings_checked" Unchecked="settings_unchecked" />
                     <CheckBox Content="Enable Back Button" Grid.Column="1" x:Name="enableCheck" Margin="0,0,10,0" IsChecked="False" Checked="enableback_Checked" Unchecked="enableback_Unchecked" />
-                    <CheckBox Content="Hide Back Button" Grid.Column="2" x:Name="visibleCheck" Margin="0,0,10,0" IsChecked="False" Checked="hideback_Checked" Unchecked="hideback_Unchecked" />
+                    <not_supported:CheckBox Content="Hide Back Button" Grid.Column="2" x:Name="visibleCheck" Margin="0,0,10,0" IsChecked="False" Checked="hideback_Checked" Unchecked="hideback_Unchecked" />
                     <CheckBox Content="Show AutoSuggestBox" Grid.Column="3" x:Name="autoSuggestCheck" IsChecked="False" Checked="autoSuggestCheck_Checked" Unchecked="autoSuggestCheck_Unchecked" />
                 </Grid>
                 <Grid Grid.Row="1">
