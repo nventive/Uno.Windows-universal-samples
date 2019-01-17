@@ -54,6 +54,13 @@ namespace AppUIBasics.ControlPages
 
         }
 
+        // UNO TODO Fixed by https://github.com/nventive/Uno/pull/502
+        private void drawAsHighlighter_UncheckedChanged(object sender, RoutedEventArgs e)
+        {
+            UpdatePen();
+
+        }
+
         private void penTipShape_Toggled(object sender, RoutedEventArgs e)
         {
             UpdatePen();

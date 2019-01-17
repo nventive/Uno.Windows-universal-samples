@@ -20,7 +20,7 @@
                     <Slider x:Name="strokeSize" Header="Stroke Size" Minimum="1" Maximum="20" Value="5"
                             ValueChanged="strokeSize_ValueChanged" Margin="0,12,0,0" IsFocusEngagementEnabled="False"/>
                     <CheckBox x:Name="drawAsHighlighter" Content="DrawAsHighlighter" IsChecked="False"
-                            Checked="drawAsHighlighter_CheckedChanged" Unchecked="drawAsHighlighter_CheckedChanged" />
+                            Checked="drawAsHighlighter_CheckedChanged" Unchecked="drawAsHighlighter_UncheckedChanged" />
                     <ToggleSwitch x:Name="penTipShape" OnContent="Circle" OffContent="Rectangle" IsOn="True"
                             Toggled="penTipShape_Toggled" Margin="0,8,0,0" />
                     <Button x:Name="clearAll" Content="Clear All" Click="clearAll_Click" Margin="0,8,0,0" />
