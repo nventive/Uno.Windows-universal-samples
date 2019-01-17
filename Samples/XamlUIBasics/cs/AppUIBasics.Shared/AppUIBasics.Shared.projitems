@@ -724,10 +724,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-   <ItemGroup>
-    <Content Include="..\..\..\..\SharedContent\cs\Default.rd.xml">
-      <Link>Properties\Default.rd.xml</Link>
-    </Content>
+  <ItemGroup>
     <Content Include="..\..\..\..\SharedContent\media\Samples\cliff.jpg">
       <Link>Assets\cliff.jpg</Link>
     </Content>
@@ -754,9 +751,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\..\..\SharedContent\cs\Default.rd.xml">
-      <Link>Properties\Default.rd.xml</Link>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en\Resources.resw" />

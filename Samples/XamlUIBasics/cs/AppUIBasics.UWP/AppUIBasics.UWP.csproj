@@ -113,7 +113,7 @@
     </PackageReference>
     <PackageReference Include="Uno.Core" Version="1.25.0-dev.57" />
     <PackageReference Include="Uno.UI">
-      <Version>1.43.0-dev.529</Version>
+      <Version>1.43.0-dev.655</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
