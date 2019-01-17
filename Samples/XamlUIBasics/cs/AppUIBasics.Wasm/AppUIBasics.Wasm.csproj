@@ -8,6 +8,12 @@
     <NoWarn>NU1701,Uno0001</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Fonts\winjs-symbols.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fonts\winjs-symbols.woff2" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="WasmCSS\Fonts.css" />
     <EmbeddedResource Include="WasmScripts\AppManifest.js" />
   </ItemGroup>
